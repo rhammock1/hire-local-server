@@ -1,4 +1,4 @@
-# Spaced repetition API!
+# Hire Local - Job Posting App API
 
 ## Local dev setup
 
