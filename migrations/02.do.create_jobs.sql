@@ -22,7 +22,7 @@ CREATE TABLE "jobs" (
   "salary" INTEGER,
   "exp_level" exp_level,
   "job_type" job_type,
-  "expiry" TEXT NOT NULL,
+  "expiry" TEXT NOT NULL DEFAULT '30 days',
   "created_on" TIMESTAMP NOT NULL DEFAULT NOW(),
   "has_expired" BOOLEAN DEFAULT FALSE,
   "contact" TEXT NOT NULL
