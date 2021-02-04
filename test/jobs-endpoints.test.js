@@ -3,7 +3,7 @@ const supertest = require('supertest')
 const app = require('../src/app')
 const helpers = require('./test-helpers')
 
-describe.only('Jobs Endpoints', () => {
+describe('Jobs Endpoints', () => {
 
   const testUsers = helpers.makeUsersArray()
   const testUser = testUsers[0]

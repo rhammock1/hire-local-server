@@ -121,6 +121,7 @@ describe('User Endpoints', function () {
     describe(`Given a valid user`, () => {
       it(`responds 201, serialized user with no password`, () => {
         const newUser = {
+          id: 3,
           username: 'test username',
           password: '11AAaa!!',
           name: 'test name',
@@ -163,70 +164,6 @@ describe('User Endpoints', function () {
                 expect(compareMatch).to.be.true
               })
           )
-      })
-
-      it(`inserts 1 language with words for the new user`, () => {
-        const newUser = {
-          username: 'test username',
-          password: '11AAaa!!',
-          name: 'test name',
-        }
-        const expectedList = {
-          name: 'French',
-          total_score: 0,
-          words: [
-            { original: 'entraine toi', translation: 'practice' },
-            { original: 'bonjour', translation: 'hello' },
-            { original: 'maison', translation: 'house' },
-            { original: 'développeur', translation: 'developer' },
-            { original: 'traduire', translation: 'translate' },
-            { original: 'incroyable', translation: 'amazing' },
-            { original: 'chien', translation: 'dog' },
-            { original: 'chat', translation: 'cat' },
-          ]
-        }
-        return supertest(app)
-          .post('/api/user')
-          .send(newUser)
-          .then(res =>
-            /*
-            get languages and words for user that were inserted to db
-            */
-            db.from('language').select(
-              'language.*',
-              db.raw(
-                `COALESCE(
-                  json_agg(DISTINCT word)
-                  filter(WHERE word.id IS NOT NULL),
-                  '[]'
-                ) AS words`
-              ),
-            )
-            .leftJoin('word', 'word.language_id', 'language.id')
-            .groupBy('language.id')
-            .where({ user_id: res.body.id })
-          )
-          .then(dbLists => {
-            expect(dbLists).to.have.length(1)
-
-            expect(dbLists[0].name).to.eql(expectedList.name)
-            expect(dbLists[0].total_score).to.eql(0)
-
-            const dbWords = dbLists[0].words
-            expect(dbWords).to.have.length(
-              expectedList.words.length
-            )
-
-            expectedList.words.forEach((expectedWord, w) => {
-              expect(dbWords[w].original).to.eql(
-                expectedWord.original
-              )
-              expect(dbWords[w].translation).to.eql(
-                expectedWord.translation
-              )
-              expect(dbWords[w].memory_value).to.eql(1)
-            })
-          })
       })
     })
   })
