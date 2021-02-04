@@ -6,7 +6,7 @@ describe('Protected Endpoints', function () {
 
   const testUsers = helpers.makeUsersArray()
   const [testUser] = testUsers
-  const [testLanguages, testWords] = helpers.makeLanguagesAndWords(testUser)
+  const [testJobs, testReqs] = helpers.makeJobAndReqs(testUser)
 
   before('make knex instance', () => {
     db = helpers.makeKnexInstance()
@@ -20,11 +20,11 @@ describe('Protected Endpoints', function () {
   afterEach('cleanup', () => helpers.cleanTables(db))
 
   beforeEach('insert users, languages and words', () => {
-    return helpers.seedUsersLanguagesWords(
+    return helpers.seedUsersJobsReqs(
       db,
       testUsers,
-      testLanguages,
-      testWords,
+      testJobs,
+      testReqs,
     )
   })
 

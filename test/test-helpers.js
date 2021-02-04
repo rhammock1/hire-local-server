@@ -100,7 +100,7 @@ function cleanTables(db) {
   return db.transaction(trx =>
     trx.raw(
       `TRUNCATE
-        "req",
+        "reqs",
         "jobs",
         "user"`
       )
