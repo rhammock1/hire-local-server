@@ -116,5 +116,51 @@ describe('Jobs Endpoints', () => {
               )
     })
   })
-
+  describe.only('PATCH /api/jobs/:jobId', () => {
+    context('Given no jobs', () => {
+        it('responds with 404', () => {
+          const jobId = 123456;
+          return supertest(app)
+            .patch(`/api/jobs/${jobId}`)
+            .set('Authorization', helpers.makeAuthHeader(testUser))
+            .expect(404, { error: `Job doesn't exist` })
+        })
+      })
+    context('Given there are jobs in the database', () => {
+        beforeEach('insert users, jobs and reqs', () => {
+            return helpers.seedUsersJobsReqs(
+              db,
+              testUsers,
+              testJobs,
+              testReqs,
+            )
+          })
+        it('responds with 204 and updates the job', () => {
+            const idToUpdate = 1;
+            const updatedJob = {
+                title: 'New Job',
+                user_id: 1,
+                description: 'Test job description',
+                exp_level: 'entry',
+                salary: 10000,
+                job_type: 'temporary',
+                contact: 'testemail@email.com',
+            }
+            const expectedJob = {
+                ...testJobs[idToUpdate - 1],
+                ...updatedJob
+            }
+            return supertest(app)
+                .patch(`/api/jobs/${idToUpdate}`)
+                .set('Authorization', helpers.makeAuthHeader(testUser))
+                .send(updatedJob)
+                .expect(204)
+                .then((res) => 
+                    supertest(app)
+                        .get(`/api/jobs/${idToUpdate}`)
+                        .expect(expectedJob)
+                )
+        })
+    })
+  })
 })
