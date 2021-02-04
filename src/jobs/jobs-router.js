@@ -72,6 +72,35 @@ jobsRouter
     .get((req, res, next) => {
         return res.status(200).json(res.job);
     })
+    .patch(requireAuth, jsonParser, (req, res, next) => {
+        const {
+            title = res.job.title,
+            user_id = res.job.user_id,
+            description = res.job.description,
+            salary = res.job.salary,
+            exp_level = res.job.exp_level,
+            job_type = res.job.job_type,
+            expiry = res.job.expiry,
+            contact = res.job.contact,
+        } = req.body;
+
+        const updatedJob = {
+            title,
+            user_id,
+            description,
+            salary,
+            exp_level,
+            job_type,
+            expiry,
+            contact,            
+        };
+        const db = req.app.get('db');
+        jobsSerivice.updateJob(db, req.params.jobId, updatedJob)
+            .then(() => {
+                return res.status(204).end();
+            })
+            .catch(next);
+    })
 
 async function checkJobExists(req, res, next) {
     const db = req.app.get('db');
