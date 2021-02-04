@@ -5,7 +5,7 @@ const helpers = require('./test-helpers')
 describe.only('Jobs Endpoints', () => {
 
   const testUsers = helpers.makeUsersArray()
-  const [testUser] = testUsers
+  const testUser = testUsers[0]
   const [testJobs, testReqs] = helpers.makeJobAndReqs(testUser)
 
   before('make knex instance', () => {
@@ -48,6 +48,15 @@ describe.only('Jobs Endpoints', () => {
     })
   })
   describe('POST /api/jobs', () => {
+    beforeEach('insert users, jobs and reqs', () => {
+        return helpers.seedUsersJobsReqs(
+          db,
+          testUsers,
+          testJobs,
+          testReqs,
+        )
+      })
+      
     const requiredFields = ['title', 'user_id', 'description', 'exp_level', 'job_type', 'contact'];
 
     requiredFields.forEach((field) => {
