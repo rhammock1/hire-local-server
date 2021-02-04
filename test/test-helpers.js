@@ -42,7 +42,7 @@ function makeUsersArray() {
 function makeJobAndReqs(user) {
   const job = [
     {
-      user_id: 1,
+      user_id: user.id,
       description: 'This is a test job desription',
       salary: 85000,
       exp_level: 'mid',
