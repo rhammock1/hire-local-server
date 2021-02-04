@@ -10,6 +10,14 @@ const jobsSerivice = {
             .into('jobs')
             .returning('*')
             .then((rows) => rows[0]);
+    },
+    
+    getById(knex, jobId) {
+        return knex
+            .from('jobs')
+            .select('*')
+            .where('id', jobId)
+            .first();
     }
 }
 
