@@ -14,9 +14,9 @@ VALUES
   );
 
 
-INSERT INTO "jobs" ("user_id", "description", "reqs", "salary", "ex_level", "job_type", "contact")
+INSERT INTO "jobs" ("user_id", "description", "salary", "ex_level", "job_type", "contact")
 VALUES
-
+    (1, 'This is a test job desription',)
 
 
 COMMIT;
