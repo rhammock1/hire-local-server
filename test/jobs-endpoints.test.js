@@ -47,5 +47,14 @@ describe.only('Jobs Endpoints', () => {
         })
     })
   })
+  describe('POST /api/jobs', () => {
+    const requiredFields = ['title', 'user_id', 'description', 'exp_level', 'job_type', 'contact'];
+
+    requiredFields.forEach((field) => {
+        const newJob = {
+
+        }
+    })
+  })
 
 })

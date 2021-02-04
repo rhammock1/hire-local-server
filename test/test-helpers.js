@@ -44,6 +44,7 @@ function makeJobAndReqs(user) {
     {
       id: 1,
       user_id: user.id,
+      title: 'Test Title',
       created_on: "2021-02-04T15:03:29.251Z",
       expiry: "30 days",
       has_expired: false,
