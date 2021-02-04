@@ -11,7 +11,10 @@ jobsRouter
         const db = req.app.get('db');
         jobsSerivice.getAllJobs(db)
             .then((jobs) => {
-                return res.status(200).json(jobs);
+                let notExpired = [];
+                let expired = [];
+                jobs.forEach((job) => (!job.has_expired) ? notExpired.push(job) : expired.push(job))
+                return res.status(200).json({ notExpired, expired });
             })
             .catch(next)
     })
@@ -82,6 +85,7 @@ jobsRouter
             job_type = res.job.job_type,
             expiry = res.job.expiry,
             contact = res.job.contact,
+            has_expired = res.job.has_expired,
         } = req.body;
 
         const updatedJob = {
@@ -92,7 +96,8 @@ jobsRouter
             exp_level,
             job_type,
             expiry,
-            contact,            
+            contact,
+            has_expired           
         };
         const db = req.app.get('db');
         jobsSerivice.updateJob(db, req.params.jobId, updatedJob)

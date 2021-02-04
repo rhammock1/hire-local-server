@@ -26,7 +26,7 @@ describe('Jobs Endpoints', () => {
         it('responds with 200 and an empty array', () => {
             return supertest(app)
               .get('/api/jobs')
-              .expect(200, [])
+              .expect(200, { notExpired: [], expired: [] })
         })
     })
 
@@ -44,7 +44,7 @@ describe('Jobs Endpoints', () => {
         it('responds with 200 and an array of jobs', () => {
             return supertest(app)
                 .get('/api/jobs')
-                .expect(200, testJobs)
+                .expect(200, { notExpired: testJobs, expired: [] })
         })
     })
   })
@@ -116,7 +116,7 @@ describe('Jobs Endpoints', () => {
               )
     })
   })
-  describe.only('PATCH /api/jobs/:jobId', () => {
+  describe('PATCH /api/jobs/:jobId', () => {
     context('Given no jobs', () => {
         it('responds with 404', () => {
           const jobId = 123456;
