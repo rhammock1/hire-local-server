@@ -35,58 +35,46 @@ function makeUsersArray() {
 }
 
 /**
- * generate fixtures of languages and words for a given user
+ * generate fixtures of jobs and job requirements for a given user
  * @param {object} user - contains `id` property
- * @returns {Array(languages, words)} - arrays of languages and words
+ * @returns {Array(jobs, reqs)} - arrays of jobs and reqs
  */
-function makeLanguagesAndWords(user) {
-  const languages = [
+function makeJobAndReqs(user) {
+  const job = [
     {
-      id: 1,
-      name: 'Test language 1',
-      user_id: user.id,
+      user_id: 1,
+      description: 'This is a test job desription',
+      salary: 85000,
+      exp_level: 'mid',
+      job_type: 'part-time',
+      contact: 'testemail@email.com',
     },
   ]
 
-  const words = [
+  const reqs = [
     {
-      id: 1,
-      original: 'original 1',
-      translation: 'translation 1',
-      language_id: 1,
-      next: 2,
+      job_id: 1,
+      requirement: '2 years with Node.js',
     },
     {
-      id: 2,
-      original: 'original 2',
-      translation: 'translation 2',
-      language_id: 1,
-      next: 3,
+      job_id: 1,
+      requirement: '2 years with React.js',
     },
     {
-      id: 3,
-      original: 'original 3',
-      translation: 'translation 3',
-      language_id: 1,
-      next: 4,
+      job_id: 1,
+      requirement: '2 years with Express.js',
     },
     {
-      id: 4,
-      original: 'original 4',
-      translation: 'translation 4',
-      language_id: 1,
-      next: 5,
+      job_id: 1,
+      requirement: '2 years with Cloud services',
     },
     {
-      id: 5,
-      original: 'original 5',
-      translation: 'translation 5',
-      language_id: 1,
-      next: null,
+      job_id: 1,
+      requirement: '2 years with any relational database',
     },
   ]
 
-  return [languages, words]
+  return [job, reqs]
 }
 
 /**
@@ -112,19 +100,9 @@ function cleanTables(db) {
   return db.transaction(trx =>
     trx.raw(
       `TRUNCATE
-        "word",
-        "language",
+        "req",
+        "jobs",
         "user"`
-      )
-      .then(() =>
-        Promise.all([
-          trx.raw(`ALTER SEQUENCE word_id_seq minvalue 0 START WITH 1`),
-          trx.raw(`ALTER SEQUENCE language_id_seq minvalue 0 START WITH 1`),
-          trx.raw(`ALTER SEQUENCE user_id_seq minvalue 0 START WITH 1`),
-          trx.raw(`SELECT setval('word_id_seq', 0)`),
-          trx.raw(`SELECT setval('language_id_seq', 0)`),
-          trx.raw(`SELECT setval('user_id_seq', 0)`),
-        ])
       )
   )
 }
@@ -143,10 +121,6 @@ function seedUsers(db, users) {
   return db.transaction(async trx => {
     await trx.into('user').insert(preppedUsers)
 
-    await trx.raw(
-      `SELECT setval('user_id_seq', ?)`,
-      [users[users.length - 1].id],
-    )
   })
 }
 
@@ -154,44 +128,26 @@ function seedUsers(db, users) {
  * seed the databases with words and update sequence counter
  * @param {knex instance} db
  * @param {array} users - array of user objects for insertion
- * @param {array} languages - array of languages objects for insertion
- * @param {array} words - array of words objects for insertion
+ * @param {array} jobs - array of job objects for insertion
+ * @param {array} reqs - array of requirement objects for insertion
  * @returns {Promise} - when all tables seeded
  */
-async function seedUsersLanguagesWords(db, users, languages, words) {
+async function seedUsersJobsReqs(db, users, jobs, reqs) {
   await seedUsers(db, users)
 
   await db.transaction(async trx => {
-    await trx.into('language').insert(languages)
-    await trx.into('word').insert(words)
+    await trx.into('jobs').insert(jobs)
+    await trx.into('reqs').insert(reqs)
 
-    const languageHeadWord = words.find(
-      w => w.language_id === languages[0].id
-    )
-
-    await trx('language')
-      .update({ head: languageHeadWord.id })
-      .where('id', languages[0].id)
-
-    await Promise.all([
-      trx.raw(
-        `SELECT setval('language_id_seq', ?)`,
-        [languages[languages.length - 1].id],
-      ),
-      trx.raw(
-        `SELECT setval('word_id_seq', ?)`,
-        [words[words.length - 1].id],
-      ),
-    ])
   })
 }
 
 module.exports = {
   makeKnexInstance,
   makeUsersArray,
-  makeLanguagesAndWords,
+  makeJobAndReqs,
   makeAuthHeader,
   cleanTables,
   seedUsers,
-  seedUsersLanguagesWords,
+  seedUsersJobsReqs,
 }
