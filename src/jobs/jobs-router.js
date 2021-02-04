@@ -66,11 +66,18 @@ jobsRouter
 
     })
 
+jobsRouter
+    .route('/:jobId')
+    .all(checkJobExists)
+    .get((req, res, next) => {
+        return res.status(200).json(res.job);
+    })
+
 async function checkJobExists(req, res, next) {
     const db = req.app.get('db');
     const { jobId } = req.params
     try {
-        const job = await jobsSerivice.getByid(db, jobId);
+        const job = await jobsSerivice.getById(db, jobId);
         if (!job) {
             return res.status(404).json({
                 error: 'Job doesn\'t exist'
