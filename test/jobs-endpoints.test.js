@@ -1,3 +1,4 @@
+const { expect } = require('chai')
 const supertest = require('supertest')
 const app = require('../src/app')
 const helpers = require('./test-helpers')
@@ -56,7 +57,7 @@ describe.only('Jobs Endpoints', () => {
           testReqs,
         )
       })
-      
+
     const requiredFields = ['title', 'user_id', 'description', 'exp_level', 'job_type', 'contact'];
 
     requiredFields.forEach((field) => {
@@ -81,6 +82,38 @@ describe.only('Jobs Endpoints', () => {
                 })
 
         })
+    })
+
+    it('Creates a new job, responds with 201 and the new job', () => {
+        const newJob = {
+            title: 'New Job',
+            user_id: 1,
+            description: 'Test job description',
+            exp_level: 'entry',
+            salary: 10000,
+            job_type: 'temporary',
+            contact: 'testemail@email.com',
+        };
+
+        return supertest(app)
+            .post('/api/jobs')
+            .set('Authorization', helpers.makeAuthHeader(testUser))
+            .send(newJob)
+            .expect(201)
+            .expect((res) => {
+                expect(res.body.title).to.eql(newJob.title)
+                expect(res.body.user_id).to.eql(newJob.user_id)
+                expect(res.body.description).to.eql(newJob.description)
+                expect(res.body.exp_level).to.eql(newJob.exp_level)
+                expect(res.body.salary).to.eql(newJob.salary)
+                expect(res.body.job_type).to.eql(newJob.job_type)
+                expect(res.body.contact).to.eql(newJob.contact)
+            })
+            .then((postRes) => 
+                supertest(app)
+                  .get(`/api/jobs/${postRes.body.id}`)
+                  .expect(postRes.body)
+              )
     })
   })
 
