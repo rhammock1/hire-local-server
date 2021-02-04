@@ -7,9 +7,11 @@
     "test": "mocha --require test/setup.js",
     "dev": "nodemon src/server.js",
     "migrate": "postgrator --config postgrator-config.js",
+    "migrate:test": "env NODE_ENV=test npm run migrate",
+    "migrate:production": "heroku run npm run migrate",
     "start": "node src/server.js",
     "predeploy": "npm audit",
-    "deploy": "git push heroku master"
+    "deploy": "git push heroku main"
   },
   "keywords": [],
   "author": "Tom `tomatao` HT <tomht@thinkful.com>",
@@ -25,6 +27,7 @@
     "morgan": "^1.9.1",
     "multer": "^1.4.2",
     "pg": "^7.8.2",
+    "postgrator-cli": "^3.2.0",
     "puppeteer": "^7.0.1"
   },
   "devDependencies": {
