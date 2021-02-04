@@ -18,7 +18,14 @@ const jobsSerivice = {
             .select('*')
             .where('id', jobId)
             .first();
+    },
+
+    updateJob(knex, id, newJobFields) {
+        return knex('jobs')
+            .where({ id })
+            .update(newJobFields)
     }
+
 }
 
 module.exports = jobsSerivice;
