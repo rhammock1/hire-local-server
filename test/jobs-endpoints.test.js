@@ -52,8 +52,26 @@ describe.only('Jobs Endpoints', () => {
 
     requiredFields.forEach((field) => {
         const newJob = {
+            title: 'New Job',
+            user_id: 1,
+            description: 'Test job description',
+            exp_level: 'entry',
+            salary: 10000,
+            job_type: 'temporary',
+            contact: 'testemail@email.com',
+        };
 
-        }
+        it('responds with 400 error message when a required field is missing', () => {
+            delete newJob[field];
+            return supertest(app)
+                .post('/api/jobs')
+                .set('Authorization', helpers.makeAuthHeader(testUser))
+                .send(newJob)
+                .expect(400, {
+                    error: `Missing '${field}' in body`
+                })
+
+        })
     })
   })
 
