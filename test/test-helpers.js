@@ -42,7 +42,11 @@ function makeUsersArray() {
 function makeJobAndReqs(user) {
   const job = [
     {
+      id: 1,
       user_id: user.id,
+      created_on: "2021-02-04T15:03:29.251Z",
+      expiry: "30 days",
+      has_expired: false,
       description: 'This is a test job desription',
       salary: 85000,
       exp_level: 'mid',

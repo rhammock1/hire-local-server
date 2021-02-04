@@ -19,20 +19,33 @@ describe.only('Jobs Endpoints', () => {
 
   afterEach('cleanup', () => helpers.cleanTables(db))
 
-  beforeEach('insert users, languages and words', () => {
-    return helpers.seedUsersJobsReqs(
-      db,
-      testUsers,
-      testJobs,
-      testReqs,
-    )
+
+  describe('GET /api/jobs', () => {
+    context('Given there are no jobs in the database' , () => {
+        it('responds with 200 and an empty array', () => {
+            return supertest(app)
+              .get('/api/jobs')
+              .expect(200, [])
+        })
+    })
+
+    context('Given there are jobs in the database', () => {
+        
+        beforeEach('insert users, jobs and reqs', () => {
+            return helpers.seedUsersJobsReqs(
+              db,
+              testUsers,
+              testJobs,
+              testReqs,
+            )
+          })
+
+        it('responds with 200 and an array of jobs', () => {
+            return supertest(app)
+                .get('/api/jobs')
+                .expect(200, testJobs)
+        })
+    })
   })
 
-  context('Given there are no jobs in the database' , () => {
-      it('responds with 200 and an empty array', () => {
-          return supertest(app)
-            .get('/api/jobs')
-            .expect(200, [])
-      })
-  })
 })
