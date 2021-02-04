@@ -19,7 +19,7 @@ describe('Protected Endpoints', function () {
 
   afterEach('cleanup', () => helpers.cleanTables(db))
 
-  beforeEach('insert users, languages and words', () => {
+  beforeEach('insert users, jobs and reqs', () => {
     return helpers.seedUsersJobsReqs(
       db,
       testUsers,
@@ -30,24 +30,9 @@ describe('Protected Endpoints', function () {
 
   const protectedEndpoints = [
     {
-      name: 'GET /api/language',
-      path: '/api/language',
-      method: supertest(app).get,
-    },
-    {
-      name: 'GET /api/language/head',
-      path: '/api/language/head',
-      method: supertest(app).get,
-    },
-    {
-      name: 'POST /api/language/guess',
-      path: '/api/language/guess',
+      name: 'POST /api/jobs',
+      path: '/api/jobs',
       method: supertest(app).post,
-    },
-    {
-      name: 'PUT /api/auth/token',
-      path: '/api/auth/token',
-      method: supertest(app).put,
     },
   ]
 
