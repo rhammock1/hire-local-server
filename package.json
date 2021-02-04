@@ -14,6 +14,9 @@
     "deploy": "git push heroku main"
   },
   "keywords": [],
+  "engines": {
+    "node": "12.19.0"
+  },
   "author": "Robert Hammock <rhamm1027@gmail.com>",
   "license": "MIT",
   "dependencies": {
