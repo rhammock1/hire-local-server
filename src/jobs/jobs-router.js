@@ -65,4 +65,21 @@ jobsRouter
         
 
     })
+
+async function checkJobExists(req, res, next) {
+    const db = req.app.get('db');
+    const { jobId } = req.params
+    try {
+        const job = await jobsSerivice.getByid(db, jobId);
+        if (!job) {
+            return res.status(404).json({
+                error: 'Job doesn\'t exist'
+            });
+        }
+        res.job = job;
+        next();
+    } catch(error) {
+        next(error);
+    }
+}
 module.exports = jobsRouter;
