@@ -1,5 +1,196 @@
 # Hire Local - Job Posting App API
 
+This server is made with Node and Express with a PostgreSQL database. This is a job board app that allows users to search for and post new jobs. 
+
+## Documentation
+
+### Open Endpoints
+
+#### GET /api/jobs
+   Sample Response: 200 ok
+
+   ```
+      "notExpired": [
+        {
+            "id": 1,
+            "user_id": 1,
+            "title": "Test Title",
+            "description": "This is a test job desription",
+            "salary": 85000,
+            "exp_level": "mid",
+            "job_type": "part-time",
+            "expiry": "30 days",
+            "location": "Denver, CO",
+            "created_on": "2021-02-05T08:45:39.999Z",
+            "has_expired": false,
+            "contact": "hireLocalTest@gmail.com"
+        }, ... ],
+      "expired" : []   
+   ```
+
+#### GET /api/jobs/:jobId
+   Sample Response: 200 ok
+
+   ```
+   {
+    "id": 1,
+    "user_id": 1,
+    "title": "Test Title",
+    "description": "This is a test job desription",
+    "salary": 85000,
+    "exp_level": "mid",
+    "job_type": "part-time",
+    "expiry": "30 days",
+    "location": "Denver, CO",
+    "created_on": "2021-02-05T08:45:39.999Z",
+    "has_expired": false,
+    "contact": "hireLocalTest@gmail.com",
+    "reqs": [
+        {
+            "id": 1,
+            "job_id": 1,
+            "requirement": "2 years with Node.js"
+        },
+        {
+            "id": 2,
+            "job_id": 1,
+            "requirement": "2 years with Express.js"
+        },
+        {
+            "id": 3,
+            "job_id": 1,
+            "requirement": "2 years with React"
+        },
+        {
+            "id": 4,
+            "job_id": 1,
+            "requirement": "2 years with Cloud Services"
+        },
+        {
+            "id": 5,
+            "job_id": 1,
+            "requirement": "2 years with HTML and CSS"
+        }
+    ]
+   }
+   ```
+
+### Closed Endpoints
+
+#### POST /api/jobs (Requires a bearer token)
+   Sample Request:
+
+   ```
+   {
+    "title": "Software Engineer III",
+    "user_id": "1",
+    "description": "Casual company seeking laid-back software person",
+    "salary": "420000",
+    "exp_level": "senior",
+    "job_type": "full-time",
+    "contact": "dontemailme@email.com",
+    "location": "remote"
+    "reqs": [
+        {
+            "requirement": "2 years in one thing"
+        },
+        {
+            "requirement": "2 years in something"
+        },
+        {
+            "requirement": "2 years in something else"
+        },
+        {
+            "requirement": "2 years in not that"
+        },
+        {
+            "requirement": "2 years in business"
+        }
+    ]
+   }
+   ```
+
+   Sample Response: 201 ok
+
+   ```
+   {
+    "id": 8,
+    "user_id": 1,
+    "title": "Software Engineer III",
+    "description": "Casual company seeking laid-back software person",
+    "salary": 420000,
+    "exp_level": "senior",
+    "job_type": "full-time",
+    "expiry": "30 days",
+    "location": "remote",
+    "created_on": "2021-02-05T09:07:59.060Z",
+    "has_expired": false,
+    "contact": "dontemailme@email.com",
+    "reqs": [
+        {
+            "requirement": "2 years in one thing"
+        },
+        {
+            "requirement": "2 years in something"
+        },
+        {
+            "requirement": "2 years in something else"
+        },
+        {
+            "requirement": "2 years in not that"
+        },
+        {
+            "requirement": "2 years in business"
+        }
+    ]
+   }
+   ```
+
+#### PATCH /api/jobs/:jobId
+   Sample Request:
+
+   ```
+   {
+      "title": "Updated Job Title"
+   }
+   ```
+
+   Sample Response:
+
+   ```
+   {
+    "id": 8,
+    "user_id": 1,
+    "title": "Updated Job Title",
+    "description": "Casual company seeking laid-back software person",
+    "salary": 420000,
+    "exp_level": "senior",
+    "job_type": "full-time",
+    "expiry": "30 days",
+    "location": "remote",
+    "created_on": "2021-02-05T09:07:59.060Z",
+    "has_expired": false,
+    "contact": "dontemailme@email.com",
+    "reqs": [
+        {
+            "requirement": "2 years in one thing"
+        },
+        {
+            "requirement": "2 years in something"
+        },
+        {
+            "requirement": "2 years in something else"
+        },
+        {
+            "requirement": "2 years in not that"
+        },
+        {
+            "requirement": "2 years in business"
+        }
+    ]
+   }
+   ```
+
 ## Local dev setup
 
 If using user `dunder-mifflin`:
