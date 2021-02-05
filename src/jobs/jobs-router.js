@@ -18,7 +18,7 @@ jobsRouter
             })
             .catch(next)
     })
-    .post(requireAuth, jsonParser, (req, res, next) => {
+    .post(jsonParser, (req, res, next) => {
         const {
             title,
             user_id,
@@ -28,6 +28,7 @@ jobsRouter
             job_type,
             expiry,
             contact,
+            reqs
         } = req.body;
 
         const requiredFields = ['title', 'user_id', 'description', 'exp_level', 'job_type', 'contact'];
@@ -56,8 +57,18 @@ jobsRouter
             })
         } else {
             const db = req.app.get('db');
+            
             jobsSerivice.insertNewJob(db, newJob)
                 .then((job) => {
+                    if (reqs) {
+                        const reqsToInsert = reqs.map((req) => ({
+                            job_id: job.id,
+                            requirement: req.requirement
+                        }) )
+                        jobsSerivice.insertNewReq(db, reqsToInsert)
+                            
+                    }
+                    job.reqs = reqs;
                     return res.status(201)
                         .location(path.posix.join(req.originalUrl, `/${job.id}`))
                         .json(job);
