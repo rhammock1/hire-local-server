@@ -117,7 +117,9 @@ async function checkJobExists(req, res, next) {
                 error: 'Job doesn\'t exist'
             });
         }
+        const reqs = await jobsSerivice.getReqsById(db, jobId)
         res.job = job;
+        res.job.reqs = reqs;
         next();
     } catch(error) {
         next(error);

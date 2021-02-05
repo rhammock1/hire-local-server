@@ -20,6 +20,13 @@ const jobsSerivice = {
             .first();
     },
 
+    getReqsById(knex, jobId) {
+        return knex
+            .from('reqs')
+            .select('*')
+            .where('job_id', jobId)
+    },
+
     updateJob(knex, id, newJobFields) {
         return knex('jobs')
             .where({ id })

@@ -109,11 +109,6 @@ describe('Jobs Endpoints', () => {
                 expect(res.body.job_type).to.eql(newJob.job_type)
                 expect(res.body.contact).to.eql(newJob.contact)
             })
-            .then((postRes) => 
-                supertest(app)
-                  .get(`/api/jobs/${postRes.body.id}`)
-                  .expect(postRes.body)
-              )
     })
   })
   describe('PATCH /api/jobs/:jobId', () => {
@@ -155,11 +150,7 @@ describe('Jobs Endpoints', () => {
                 .set('Authorization', helpers.makeAuthHeader(testUser))
                 .send(updatedJob)
                 .expect(204)
-                .then((res) => 
-                    supertest(app)
-                        .get(`/api/jobs/${idToUpdate}`)
-                        .expect(expectedJob)
-                )
+
         })
     })
   })
