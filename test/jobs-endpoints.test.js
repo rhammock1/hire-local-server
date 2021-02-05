@@ -58,7 +58,7 @@ describe('Jobs Endpoints', () => {
         )
       })
 
-    const requiredFields = ['title', 'user_id', 'description', 'exp_level', 'job_type', 'contact'];
+    const requiredFields = ['title', 'user_id', 'description', 'exp_level', 'job_type', 'contact', 'location'];
 
     requiredFields.forEach((field) => {
         const newJob = {
@@ -69,8 +69,8 @@ describe('Jobs Endpoints', () => {
             salary: 10000,
             job_type: 'temporary',
             contact: 'testemail@email.com',
+            location: 'Charlotte, NC',
         };
-
         it('responds with 400 error message when a required field is missing', () => {
             delete newJob[field];
             return supertest(app)
@@ -91,6 +91,7 @@ describe('Jobs Endpoints', () => {
             description: 'Test job description',
             exp_level: 'entry',
             salary: 10000,
+            location: 'Charlotte, NC',
             job_type: 'temporary',
             contact: 'testemail@email.com',
         };

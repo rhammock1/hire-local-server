@@ -51,6 +51,7 @@ function makeJobAndReqs(user) {
       description: 'This is a test job desription',
       salary: 85000,
       exp_level: 'mid',
+      location: 'Charlotte, NC',
       job_type: 'part-time',
       contact: 'testemail@email.com',
     },

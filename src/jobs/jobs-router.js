@@ -18,7 +18,7 @@ jobsRouter
             })
             .catch(next)
     })
-    .post(jsonParser, (req, res, next) => {
+    .post(requireAuth, jsonParser, (req, res, next) => {
         const {
             title,
             user_id,
@@ -27,11 +27,12 @@ jobsRouter
             exp_level,
             job_type,
             expiry,
+            location,
             contact,
             reqs
         } = req.body;
 
-        const requiredFields = ['title', 'user_id', 'description', 'exp_level', 'job_type', 'contact'];
+        const requiredFields = ['title', 'user_id', 'description', 'exp_level', 'job_type', 'contact', 'location'];
         
         const newJob = {
             title,
@@ -40,6 +41,7 @@ jobsRouter
             salary,
             exp_level,
             job_type,
+            location,
             expiry,
             contact,
         }
