@@ -66,7 +66,8 @@ jobsRouter
                             requirement: req.requirement
                         }) )
                         jobsSerivice.insertNewReq(db, reqsToInsert)
-                            
+                            .then((req) => console.log(req))
+                            .catch(next);
                     }
                     job.reqs = reqs;
                     return res.status(201)

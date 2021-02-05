@@ -16,6 +16,8 @@ const jobsSerivice = {
         return knex
             .insert(req)
             .into('reqs')
+            .returning('*')
+            .then((rows) => rows[0]);
     },
 
     getById(knex, jobId) {
