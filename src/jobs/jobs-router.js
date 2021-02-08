@@ -22,21 +22,25 @@ jobsRouter
         const {
             title,
             user_id,
+            summary,
             description,
             salary,
             exp_level,
             job_type,
             expiry,
+            zipcode,
             location,
             contact,
             reqs
         } = req.body;
 
-        const requiredFields = ['title', 'user_id', 'description', 'exp_level', 'job_type', 'contact', 'location'];
+        const requiredFields = ['title', 'user_id', 'description', 'exp_level', 'zipcode', 'job_type', 'contact', 'location'];
         
         const newJob = {
             title,
             user_id,
+            zipcode,
+            summary,
             description,
             salary,
             exp_level,
@@ -93,6 +97,8 @@ jobsRouter
         const {
             title = res.job.title,
             user_id = res.job.user_id,
+            zipcode = res.job.zipcode,
+            summary = res.job.summary,
             description = res.job.description,
             salary = res.job.salary,
             exp_level = res.job.exp_level,
@@ -105,6 +111,8 @@ jobsRouter
         const updatedJob = {
             title,
             user_id,
+            zipcode,
+            summary,
             description,
             salary,
             exp_level,

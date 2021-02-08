@@ -48,9 +48,11 @@ function makeJobAndReqs(user) {
       created_on: "2021-02-04T15:03:29.251Z",
       expiry: "30 days",
       has_expired: false,
+      summary: 'This is a test job summary',
       description: 'This is a test job desription',
       salary: 85000,
       exp_level: 'mid',
+      zipcode: 28217,
       location: 'Charlotte, NC',
       job_type: 'part-time',
       contact: 'testemail@email.com',
@@ -108,7 +110,8 @@ function cleanTables(db) {
       `TRUNCATE
         "reqs",
         "jobs",
-        "user"`
+        "user"
+        RESTART IDENTITY CASCADE;`
       )
   )
 }

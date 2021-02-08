@@ -50,20 +50,20 @@ describe('Jobs Endpoints', () => {
   })
   describe('POST /api/jobs', () => {
     beforeEach('insert users, jobs and reqs', () => {
-        return helpers.seedUsersJobsReqs(
+        return helpers.seedUsers(
           db,
           testUsers,
-          testJobs,
-          testReqs,
         )
       })
 
-    const requiredFields = ['title', 'user_id', 'description', 'exp_level', 'job_type', 'contact', 'location'];
+    const requiredFields = ['title', 'user_id', 'zipcode', 'description', 'exp_level', 'job_type', 'contact', 'location'];
 
     requiredFields.forEach((field) => {
         const newJob = {
             title: 'New Job',
             user_id: 1,
+            zipcode: 28217,
+            summary: 'Test job summary',
             description: 'Test job description',
             exp_level: 'entry',
             salary: 10000,
@@ -88,6 +88,8 @@ describe('Jobs Endpoints', () => {
         const newJob = {
             title: 'New Job',
             user_id: 1,
+            zipcode: 28217,
+            summary: 'Test job summary',
             description: 'Test job description',
             exp_level: 'entry',
             salary: 10000,
@@ -104,6 +106,8 @@ describe('Jobs Endpoints', () => {
             .expect((res) => {
                 expect(res.body.title).to.eql(newJob.title)
                 expect(res.body.user_id).to.eql(newJob.user_id)
+                expect(res.body.summary).to.eql(newJob.summary)
+                expect(res.body.zipcode).to.eql(newJob.zipcode)
                 expect(res.body.description).to.eql(newJob.description)
                 expect(res.body.exp_level).to.eql(newJob.exp_level)
                 expect(res.body.salary).to.eql(newJob.salary)

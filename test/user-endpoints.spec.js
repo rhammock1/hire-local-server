@@ -16,14 +16,15 @@ describe('User Endpoints', function () {
   after('disconnect from db', () => db.destroy())
 
   before('cleanup', () => helpers.cleanTables(db))
-
+  beforeEach('insert users', () => helpers.seedUsers(db, testUsers))
   afterEach('cleanup', () => helpers.cleanTables(db))
 
   /**
    * @description Register a user and populate their fields
    **/
   describe(`POST /api/user`, () => {
-    beforeEach('insert users', () => helpers.seedUsers(db, testUsers))
+    
+    
 
     const requiredFields = ['username', 'password', 'name']
 
@@ -33,7 +34,7 @@ describe('User Endpoints', function () {
         password: 'test password',
         name: 'test name',
       }
-
+      
       it(`responds with 400 required error when '${field}' is missing`, () => {
         delete registerAttemptBody[field]
 
@@ -119,9 +120,11 @@ describe('User Endpoints', function () {
     })
 
     describe(`Given a valid user`, () => {
+      beforeEach('cleanup', () => helpers.cleanTables(db))
+      
+
       it(`responds 201, serialized user with no password`, () => {
         const newUser = {
-          id: 3,
           username: 'test username',
           password: '11AAaa!!',
           name: 'test name',
