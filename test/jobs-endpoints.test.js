@@ -62,7 +62,7 @@ describe('Jobs Endpoints', () => {
         const newJob = {
             title: 'New Job',
             user_id: 1,
-            zipcode: 28217,
+            zipcode: '28217',
             summary: 'Test job summary',
             description: 'Test job description',
             exp_level: 'entry',
@@ -88,7 +88,7 @@ describe('Jobs Endpoints', () => {
         const newJob = {
             title: 'New Job',
             user_id: 1,
-            zipcode: 28217,
+            zipcode: '28217',
             summary: 'Test job summary',
             description: 'Test job description',
             exp_level: 'entry',

@@ -52,7 +52,7 @@ function makeJobAndReqs(user) {
       description: 'This is a test job desription',
       salary: 85000,
       exp_level: 'mid',
-      zipcode: 28217,
+      zipcode: '28217',
       location: 'Charlotte, NC',
       job_type: 'part-time',
       contact: 'testemail@email.com',
@@ -82,7 +82,21 @@ function makeJobAndReqs(user) {
     },
   ]
 
-  return [job, reqs]
+  const saves = [
+    {
+      user_id: user.id,
+      job_id: job.id
+    }
+  ]
+
+  const applied = [
+    {
+      user_id: user.id,
+      job_id: job.id
+    }
+  ]
+
+  return [job, reqs, saves, applied]
 }
 
 /**
