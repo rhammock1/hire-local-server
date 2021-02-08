@@ -3,7 +3,7 @@ const supertest = require('supertest')
 const app = require('../src/app')
 const helpers = require('./test-helpers')
 
-describe('Saves endpoints', () => {
+describe.only('Saves endpoints', () => {
     const testUsers = helpers.makeUsersArray()
     const testUser = testUsers[0]
     const [testJobs, testReqs, testSaves] = helpers.makeJobAndReqs(testUser)
@@ -47,4 +47,43 @@ describe('Saves endpoints', () => {
             })
         })
     })
+    describe('POST /api/saves/:userId', () => {
+        const requiredFields = ['user_id', 'job_id'];
+
+        requiredFields.forEach((field) => {
+            const newSave = {
+                user_id: 1,
+                job_id: 2,
+            };
+
+            it('responds with 400 error message when a required field is missing', () => {
+                delete newSave[field];
+                return supertest(app)
+                    .post(`/api/saves/1`)
+                    .set('Authorization', helpers.makeAuthHeader(testUser))
+                    .send(newSave)
+                    .expect(400, {
+                        error: `Missing '${field}' in body`
+                    })
+
+            })
+        })
+        it('Creates a new job, responds with 201 and the new job', () => {
+            const newSave = {
+                user_id: 1,
+                job_id: 2,
+            };
+    
+            return supertest(app)
+                .post('/api/saves/1')
+                .set('Authorization', helpers.makeAuthHeader(testUser))
+                .send(newSave)
+                .expect(201)
+                .expect((res) => {
+                    expect(res.body).to.have.property('id')
+                    expect(res.body.user_id).to.eql(newSave.user_id)
+                    expect(res.body.job_id).to.eql(newSave.job_id)
+                })
+        })
+    }) 
 })
