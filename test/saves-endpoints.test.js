@@ -3,11 +3,10 @@ const supertest = require('supertest')
 const app = require('../src/app')
 const helpers = require('./test-helpers')
 
-describe.only('Saves endpoints', () => {
+describe('Saves endpoints', () => {
     const testUsers = helpers.makeUsersArray()
     const testUser = testUsers[0]
     const [testJobs, testReqs, testSaves] = helpers.makeJobAndReqs(testUser)
-    console.log('line 10', testSaves);
     before('make knex instance', () => {
         db = helpers.makeKnexInstance()
         app.set('db', db)
@@ -48,14 +47,21 @@ describe.only('Saves endpoints', () => {
         })
     })
     describe('POST /api/saves/:userId', () => {
-        const requiredFields = ['user_id', 'job_id'];
+        beforeEach('insert users, jobs and reqs', () => {
+            return helpers.seedUsersJobsReqs(
+              db,
+              testUsers,
+              testJobs,
+              testReqs,
+            )
+          })
+        const requiredFields = ['job_id'];
 
         requiredFields.forEach((field) => {
             const newSave = {
                 user_id: 1,
-                job_id: 2,
+                job_id: 1,
             };
-
             it('responds with 400 error message when a required field is missing', () => {
                 delete newSave[field];
                 return supertest(app)
@@ -71,7 +77,7 @@ describe.only('Saves endpoints', () => {
         it('Creates a new job, responds with 201 and the new job', () => {
             const newSave = {
                 user_id: 1,
-                job_id: 2,
+                job_id: 1,
             };
     
             return supertest(app)
