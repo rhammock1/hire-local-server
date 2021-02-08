@@ -85,14 +85,14 @@ function makeJobAndReqs(user) {
   const saves = [
     {
       user_id: user.id,
-      job_id: job.id
+      job_id: 1
     }
   ]
 
   const applied = [
     {
       user_id: user.id,
-      job_id: job.id
+      job_id: 1
     }
   ]
 
@@ -122,6 +122,8 @@ function cleanTables(db) {
   return db.transaction(trx =>
     trx.raw(
       `TRUNCATE
+        "user_applied",
+        "user_saves",
         "reqs",
         "jobs",
         "user"
@@ -155,13 +157,14 @@ function seedUsers(db, users) {
  * @param {array} reqs - array of requirement objects for insertion
  * @returns {Promise} - when all tables seeded
  */
-async function seedUsersJobsReqs(db, users, jobs, reqs) {
+async function seedUsersJobsReqs(db, users, jobs, reqs, saves, applied) {
   await seedUsers(db, users)
 
   await db.transaction(async trx => {
     await trx.into('jobs').insert(jobs)
     await trx.into('reqs').insert(reqs)
-
+    await trx.into('user_saves').insert(saves)
+    await trx.into('user_applied').insert(applied)
   })
 }
 
