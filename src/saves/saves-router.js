@@ -8,6 +8,7 @@ const savesRouter = express.Router();
 
 savesRouter
     .route('/:userId')
+    // .all(requireAuth)
     .get((req, res, next) => {
         const db = req.app.get('db')
         const { userId } = req.params;
@@ -29,5 +30,31 @@ savesRouter
             .json(save))
             .catch(next);
     })
+    .delete(checkSaveExists, (req, res, next) => {
+        const save = res.save;
+        const db = req.app.get('db');
+
+        savesService.delete(db, save.id)
+            .then(() => res.status(204).end())
+            .catch(next);
+    })
+    
+
+async function checkSaveExists(req, res, next) {
+    const db = req.app.get('db');
+    const { save_id } = req.headers;
+    try {
+        const save = await savesService.getById(db, save_id);
+        if (!save) {
+            return res.status(404).json({
+                error: 'Save doesn\'t exist'
+            });
+        }
+        res.save = save;
+        next();
+    } catch(error) {
+        next(error);
+    }
+}
 
 module.exports = savesRouter;
