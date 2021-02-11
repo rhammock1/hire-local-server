@@ -92,7 +92,7 @@ describe('Jobs Endpoints', () => {
             summary: 'Test job summary',
             description: 'Test job description',
             exp_level: 'entry',
-            salary: 10000,
+            salary: "10000",
             location: 'Charlotte, NC',
             job_type: 'temporary',
             contact: 'testemail@email.com',

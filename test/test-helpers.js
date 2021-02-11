@@ -50,7 +50,7 @@ function makeJobAndReqs(user) {
       has_expired: false,
       summary: 'This is a test job summary',
       description: 'This is a test job desription',
-      salary: 85000,
+      salary: "85000",
       exp_level: 'mid',
       zipcode: '28217',
       location: 'Charlotte, NC',

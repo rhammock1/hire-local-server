@@ -20,7 +20,7 @@ CREATE TABLE "jobs" (
   "title" TEXT NOT NULL,
   "summary" TEXT,
   "description" TEXT NOT NULL,
-  "salary" INTEGER,
+  "salary" TEXT,
   "exp_level" exp_level,
   "job_type" job_type,
   "expiry" TEXT NOT NULL DEFAULT '30 days',

@@ -38,11 +38,11 @@ jobsRouter
         
         const newJob = {
             title,
-            user_id,
+            user_id: parseFloat(user_id),
             zipcode,
             summary,
             description,
-            salary,
+            salary: parseFloat(salary),
             exp_level,
             job_type,
             location,
