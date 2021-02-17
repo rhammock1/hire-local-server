@@ -8,7 +8,6 @@ const fs = require('fs');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-
 // TODO figure out how to store the resumes for each user
 
 resumeRouter
@@ -18,8 +17,18 @@ resumeRouter
         const { userId } = req.params;
         resumeServices.getByUserId(db, userId)
             .then((resume) => {
-                console.log(resume);
-                return res.status(200).json(resume)
+                
+                if (!resume) {
+                    return res.status(404).json({ error: 'No resume found for the selected user'});
+                }
+                const fileData = new Buffer(resume.resume); 
+                // fs.writeFile(resume.original_name, fileData, (err) => (err) ? console.error(err) : null);
+                res.writeHead(200, { 'Content-Type': 'application/pdf', 'Content-Disposition': `attachment; filename=${resume.original_name}`, 'Content-Length': fileData.length }); 
+                res.write(fileData);
+                
+                res.end();
+                
+
             })
             .catch(next)
     })
@@ -30,10 +39,10 @@ resumeRouter
         if (!file) {
             return res.status(400).json({ error: 'Please upload a file' });
         }
-        
+        console.log(file);
         const fileObj = {
             user_id: userId,
-            resume: file,
+            resume: file.buffer,
             original_name: file.originalname
         };
         console.log(fileObj)
@@ -45,9 +54,9 @@ resumeRouter
             ))
             .catch(next);
     })
+    // Just need to add a patch and delete endpoint with tests and documentation
 
 
 module.exports = resumeRouter;
 
 
-// var fileData = new Buffer(file_from_database); res.writeHead(200, { 'Content-Type': 'application/pdf', 'Content-Disposition', 'attachment; filename=myPDFFile.pdf', 'Content-Length': fileData.length }); res.write(fileData); res.end();
