@@ -48,3 +48,6 @@ resumeRouter
 
 
 module.exports = resumeRouter;
+
+
+// var fileData = new Buffer(file_from_database); res.writeHead(200, { 'Content-Type': 'application/pdf', 'Content-Disposition', 'attachment; filename=myPDFFile.pdf', 'Content-Length': fileData.length }); res.write(fileData); res.end();

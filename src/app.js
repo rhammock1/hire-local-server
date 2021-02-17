@@ -9,6 +9,7 @@ const userRouter = require('./user/user-router');
 const jobsRouter = require('./jobs/jobs-router');
 const savesRouter = require('./saves/saves-router');
 const resumeRouter = require('./resumes/resume-router');
+const cltRouter = require('./charlotte/charlotte-router');
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use('/api/user', userRouter);
 app.use('/api/jobs', jobsRouter);
 app.use('/api/saves', savesRouter);
 app.use('/api/resume', resumeRouter);
+app.use('/api/clt', cltRouter);
 
 app.use(errorHandler);
 
