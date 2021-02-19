@@ -16,6 +16,20 @@ const resumeServices = {
             .first();
     },
 
+    deleteResume(knex, id) {
+        return knex
+            .from('user_resume')
+            .where('user_id', id)
+            .delete()
+    },
+
+    updateResume(knex, id, newResume) {
+        return knex
+            .from('user_resume')
+            .where('user_id', id)
+            .update(newResume)
+    },
+
 };
 
 module.exports = resumeServices;
