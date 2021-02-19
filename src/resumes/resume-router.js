@@ -4,7 +4,6 @@ const { requireAuth } = require('../middleware/jwt-auth');
 const multer = require('multer');
 const resumeServices = require('./resume-services');
 const path = require('path');
-const fs = require('fs');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
@@ -45,7 +44,7 @@ resumeRouter
             resume: file.buffer,
             original_name: file.originalname
         };
-        console.log(fileObj)
+        
         resumeServices.insertResume(db, fileObj)
             .then((resume) => (
                 res.status(201)
@@ -54,7 +53,31 @@ resumeRouter
             ))
             .catch(next);
     })
-    // Just need to add a patch and delete endpoint with tests and documentation
+    .patch(upload.single('resumePDF'), (req, res, next) => {
+        const { file } = req
+        const db = req.app.get('db');
+        const { userId } = req.params;
+        if (!file) {
+            return res.status(400).json({ error: 'Please upload a file' });
+        }
+        const updateFileObj = {
+            user_id: userId,
+            resume: file.buffer,
+            original_name: file.original_name,
+        }
+
+        resumeServices.updateResume(db, userId, updateFileObj)
+            .then(() => res.status(204).end())
+            .catch(next);
+    })
+    .delete((req, res, next) => {
+        const db = req.app.get('db');
+        const { userId } = req.params;
+        resumeServices.deleteResume(db, userId)
+            .then(() => res.status(204).end())
+            .catch(next);
+    })
+
 
 
 module.exports = resumeRouter;
