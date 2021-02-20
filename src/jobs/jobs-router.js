@@ -7,6 +7,7 @@ const { requireAuth } = require('../middleware/jwt-auth');
 
 jobsRouter
     .route('/')
+    .all(checkReqBody)
     .get((req, res, next) => {
         const db = req.app.get('db');
         jobsSerivice.getAllJobs(db)
@@ -83,9 +84,13 @@ jobsRouter
                 .catch(next);
         }
 
-        
-
     })
+
+async function checkReqBody(req, res, next) {
+    const { body } = req;
+    res.something = body;
+    next();
+}
 
 jobsRouter
     .route('/:jobId')
