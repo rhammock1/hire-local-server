@@ -76,8 +76,8 @@ This server is made with Node and Express with a PostgreSQL database. This is a 
    ```
 
 ### Closed Endpoints
-
-#### POST /api/jobs (Requires a bearer token)
+(Requires a bearer token)
+#### POST /api/jobs 
    Sample Request:
 
    ```
@@ -191,6 +191,48 @@ This server is made with Node and Express with a PostgreSQL database. This is a 
    }
    ```
 
+#### GET /api/saves/:userId
+
+   Sample Response: 200 ok
+
+   ```
+    {
+    "saves": [
+        {
+            "id": 1,
+            "user_id": 1,
+            "job_id": 1
+        }
+        ]
+    }
+   ```
+
+#### POST /api/saves/:userId
+   Sample Request:
+
+   ```
+ 
+   {
+      "user_id": 1,
+      "job_id": 1
+   }
+   ```
+
+   Sample Response: 201 created
+
+   ```
+   {
+        "id": 1,
+        "user_id": 1,
+        "job_id": 1
+    }
+   ```
+
+#### DELETE /api/saves/:userId
+
+Sample Response: 204 No Content
+
+   
 #### GET /api/resume/:userId
 
    Sample Response: 200 ok
@@ -227,6 +269,7 @@ This server is made with Node and Express with a PostgreSQL database. This is a 
     "original_name": "resumeFile.pdf"
    }
    ```
+
 #### PATCH /api/resume/:userId
    Sample Request:
 
