@@ -191,6 +191,58 @@ This server is made with Node and Express with a PostgreSQL database. This is a 
    }
    ```
 
+#### GET /api/resume/:userId
+
+   Sample Response: 200 ok
+
+   ```
+    Postman cannot read .pdf files. As a result, the response view looks very wonky. VScode also requires a special extension to read .pdf files
+   ```
+
+#### POST /api/resume/:userId
+   Sample Request:
+
+   ```
+ 
+   {
+      "resumePDF": resumeFile.pdf
+   }
+   ```
+
+   Sample Response: 201 created
+
+   ```
+   {
+    "id": 7,
+    "user_id": 1,
+    "resume": {
+        "type": "Buffer",
+        "data": [
+            37,
+            80,
+            68,
+            ...
+        ],
+    },
+    "original_name": "resumeFile.pdf"
+   }
+   ```
+#### PATCH /api/resume/:userId
+   Sample Request:
+
+   ```
+ 
+   {
+      "resumePDF": resumeFile.pdf
+   }
+   ```
+
+   Sample Response: 204 No Content
+
+#### DELETE /api/resume/:userId
+
+Sample Response: 204 No Content
+
 ## Local dev setup
 
 If using user `dunder-mifflin`:
