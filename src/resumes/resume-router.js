@@ -11,6 +11,7 @@ const upload = multer({ storage: storage });
 
 resumeRouter
     .route('/:userId')
+    .all(requireAuth)
     .get((req, res, next) => {
         const db = req.app.get('db');
         const { userId } = req.params;

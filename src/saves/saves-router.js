@@ -1,4 +1,3 @@
-const { json } = require('express');
 const express = require('express');
 const { requireAuth } = require('../middleware/jwt-auth');
 const savesService = require('./saves-service');
@@ -8,7 +7,7 @@ const savesRouter = express.Router();
 
 savesRouter
     .route('/:userId')
-    // .all(requireAuth)
+    .all(requireAuth)
     .get((req, res, next) => {
         const db = req.app.get('db')
         const { userId } = req.params;
