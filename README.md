@@ -1,5 +1,7 @@
 # Hire Local - Job Posting App API
 
+(Live link to client)[https://hire-local-client.vercel.app/]
+
 This server is made with Node and Express with a PostgreSQL database. This is a job board app that allows users to search for and post new jobs. 
 
 ## Documentation
