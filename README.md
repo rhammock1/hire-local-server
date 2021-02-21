@@ -4,6 +4,10 @@
 
 This server is made with Node and Express with a PostgreSQL database. This is a job board app that allows users to search for and post new jobs. 
 
+Users can upload their resume, update, and delete it. They can save jobs to view later as well as apply for job post - if they already have a resume provided.
+
+This server uses SendGrid email API to send an email to the job post's contact with the user's resume and optional cover letter.
+
 ## Documentation
 
 ### Open Endpoints
