@@ -18,6 +18,13 @@ sgMail.setApiKey(SENDGRID_API_KEY);
 
 appliedRouter
     .route('/:userId')
+    .get((req, res, next) => {
+        const db = req.app.get('db');
+        const { userId } = req.params;
+        appliedServices.getAllUsersApplied(db, userId)
+            .then((applied) => res.status(200).json(applied))
+            .catch(next);
+    })
     .post(upload.single('coverLetter'), jsonParser, async (req, res, next) => {
         // get user resume from db and accept CL upload from req.
         const coverLetter = req.file;

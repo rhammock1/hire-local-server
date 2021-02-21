@@ -4,7 +4,7 @@ const appliedServices = {
         return knex
             .from('user_applied')
             .select('*')
-            .where(user_id)
+            .where({ user_id })
     },
 
     insertNewApplied(knex, appliedJob) {
