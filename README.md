@@ -239,6 +239,44 @@ This server is made with Node and Express with a PostgreSQL database. This is a 
 
 Sample Response: 204 No Content
 
+
+#### GET /api/apply/:userId
+
+   Sample Response: 200 ok
+
+   ```
+    {
+        [
+        {
+            "id": 1,
+            "user_id": 1,
+            "job_id": 1
+        }
+        ]
+    }
+   ```
+
+#### POST /api/apply/:userId
+   Sample Request:
+
+   ```
+ 
+   {
+        "coverLetter": <example.pdf>,
+        "job_id": 1
+   }
+   ```
+
+   Sample Response: 201 created
+
+   ```
+   {
+        "id": 1,
+        "user_id": 1,
+        "job_id": 1
+    }
+   ```
+
    
 #### GET /api/resume/:userId
 
