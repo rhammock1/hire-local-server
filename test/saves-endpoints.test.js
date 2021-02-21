@@ -20,6 +20,12 @@ describe('Saves endpoints', () => {
 
     describe('GET /api/saves', () => {
         context('Given there are no saves in the database' , () => {
+            before('insert users', () =>
+                helpers.seedUsers(
+                    db,
+                    testUsers,
+                )
+                )
             it('responds with 200 and an empty array', () => {
                 return supertest(app)
                   .get(`/api/saves/${testUser.id}`)

@@ -23,6 +23,7 @@ jobsRouter
             title,
             user_id,
             summary,
+            company,
             description,
             salary,
             exp_level,
@@ -34,13 +35,14 @@ jobsRouter
             reqs
         } = req.body;
 
-        const requiredFields = ['title', 'user_id', 'description', 'exp_level', 'zipcode', 'job_type', 'contact', 'location'];
+        const requiredFields = ['title', 'user_id', 'company', 'description', 'exp_level', 'zipcode', 'job_type', 'contact', 'location'];
         
         const newJob = {
             title,
             user_id: parseFloat(user_id),
             zipcode,
             summary,
+            company,
             description,
             salary: parseFloat(salary),
             exp_level,
@@ -97,6 +99,7 @@ jobsRouter
             user_id = res.job.user_id,
             zipcode = res.job.zipcode,
             summary = res.job.summary,
+            company = res.job.company,
             description = res.job.description,
             salary = res.job.salary,
             exp_level = res.job.exp_level,
@@ -111,6 +114,7 @@ jobsRouter
             user_id,
             zipcode,
             summary,
+            company,
             description,
             salary,
             exp_level,

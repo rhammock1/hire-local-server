@@ -34,6 +34,41 @@ describe('Protected Endpoints', function () {
       path: '/api/jobs',
       method: supertest(app).post,
     },
+    {
+      name: 'PATCH /api/jobs/1',
+      path: '/api/jobs/1',
+      method: supertest(app).patch,
+    },
+    {
+      name: 'GET /api/saves/:userId',
+      path: '/api/saves/1',
+      method: supertest(app).get,
+    },
+    {
+      name: 'POST /api/saves/:userId',
+      path: '/api/saves/1',
+      method: supertest(app).post,
+    },
+    {
+      name: 'DELETE /api/saves/:userId',
+      path: '/api/saves/1',
+      method: supertest(app).delete,
+    },
+    {
+      name: 'GET /api/resume/:userId',
+      path: '/api/resume/1',
+      method: supertest(app).get,
+    },
+    {
+      name: 'POST /api/resume/:userId',
+      path: '/api/resume/1',
+      method: supertest(app).post,
+    },
+    {
+      name: 'DELETE /api/resume/:userId',
+      path: '/api/resume/1',
+      method: supertest(app).delete,
+    },
   ]
 
   protectedEndpoints.forEach(endpoint => {

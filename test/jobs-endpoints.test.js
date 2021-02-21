@@ -56,13 +56,14 @@ describe('Jobs Endpoints', () => {
         )
       })
 
-    const requiredFields = ['title', 'user_id', 'zipcode', 'description', 'exp_level', 'job_type', 'contact', 'location'];
+    const requiredFields = ['title', 'user_id', 'zipcode', 'company', 'description', 'exp_level', 'job_type', 'contact', 'location'];
 
     requiredFields.forEach((field) => {
         const newJob = {
             title: 'New Job',
             user_id: 1,
             zipcode: '28217',
+            company: 'Test Company inc.',
             summary: 'Test job summary',
             description: 'Test job description',
             exp_level: 'entry',
@@ -89,6 +90,7 @@ describe('Jobs Endpoints', () => {
             title: 'New Job',
             user_id: 1,
             zipcode: '28217',
+            company: 'Test Company inc.',
             summary: 'Test job summary',
             description: 'Test job description',
             exp_level: 'entry',
@@ -107,6 +109,7 @@ describe('Jobs Endpoints', () => {
                 expect(res.body.title).to.eql(newJob.title)
                 expect(res.body.user_id).to.eql(newJob.user_id)
                 expect(res.body.summary).to.eql(newJob.summary)
+                expect(res.body.company).to.eql(newJob.company)
                 expect(res.body.zipcode).to.eql(newJob.zipcode)
                 expect(res.body.description).to.eql(newJob.description)
                 expect(res.body.exp_level).to.eql(newJob.exp_level)

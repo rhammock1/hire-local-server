@@ -1,6 +1,6 @@
 # Hire Local - Job Posting App API
 
-(Live link to client)[https://hire-local-client.vercel.app/]
+[Live link to client](https://hire-local-client.vercel.app/)
 
 This server is made with Node and Express with a PostgreSQL database. This is a job board app that allows users to search for and post new jobs. 
 
@@ -17,6 +17,7 @@ This server is made with Node and Express with a PostgreSQL database. This is a 
             "id": 1,
             "user_id": 1,
             "title": "Test Title",
+            "company": "Test Company inc.",
             "description": "This is a test job desription",
             "salary": 85000,
             "exp_level": "mid",
@@ -38,6 +39,7 @@ This server is made with Node and Express with a PostgreSQL database. This is a 
     "id": 1,
     "user_id": 1,
     "title": "Test Title",
+    "company": "Test Company inc.",
     "description": "This is a test job desription",
     "salary": 85000,
     "exp_level": "mid",
@@ -86,6 +88,7 @@ This server is made with Node and Express with a PostgreSQL database. This is a 
    {
     "title": "Software Engineer III",
     "user_id": "1",
+    c
     "description": "Casual company seeking laid-back software person",
     "salary": "420000",
     "exp_level": "senior",
@@ -119,6 +122,7 @@ This server is made with Node and Express with a PostgreSQL database. This is a 
     "id": 8,
     "user_id": 1,
     "title": "Software Engineer III",
+    "company": "Test Company inc.",
     "description": "Casual company seeking laid-back software person",
     "salary": 420000,
     "exp_level": "senior",
@@ -164,6 +168,7 @@ This server is made with Node and Express with a PostgreSQL database. This is a 
     "id": 8,
     "user_id": 1,
     "title": "Updated Job Title",
+    "company": "Test Company inc.",
     "description": "Casual company seeking laid-back software person",
     "salary": 420000,
     "exp_level": "senior",
@@ -287,6 +292,9 @@ Sample Response: 204 No Content
 #### DELETE /api/resume/:userId
 
 Sample Response: 204 No Content
+
+
+
 
 ## Local dev setup
 
