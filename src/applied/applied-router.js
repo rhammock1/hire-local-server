@@ -28,8 +28,8 @@ appliedRouter
     .post(upload.single('coverLetter'), jsonParser, async (req, res, next) => {
         // get user resume from db and accept CL upload from req.
         const coverLetter = req.file;
-        const { jobId } = req.body;
-        console.log(coverLetter);
+        const { jobId, contact } = req.body;
+        console.log(contact);
         const db = req.app.get('db');
         const { userId } = req.params;
         
@@ -62,7 +62,7 @@ appliedRouter
                 ];
 
         const msg = {
-            to: 'rhamm1027@gmail.com',
+            to: contact,
             from: 'hireLocal01@gmail.com',
             subject: `Application for job: ${jobObj.title}`,
             text: 'This is just a little test',

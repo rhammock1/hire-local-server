@@ -18,13 +18,13 @@ VALUES
 
 INSERT INTO "jobs" ("user_id", "title", "location", "zipcode", "company", "summary", "description", "salary", "exp_level", "job_type", "contact")
 VALUES
-    (1, 'Test Title', 'Denver, CO', 80014, 'Test Company inc.', 'This is a test job summary', 'This is a test job description', 85000, 'mid', 'part-time', 'hireLocalTest@gmail.com'),
-    (1, 'Test Title', 'Denver, CO', 80014, 'Test Company inc.', 'This is a test job summary', 'This is a test job description', 200000, 'senior', 'full-time', 'hireLocalTest@gmail.com'),
-    (1, 'Test Title', 'Denver, CO', 80014, 'Test Company inc.', 'This is a test job summary', 'This is a test job description', 45000, 'entry', 'full-time', 'hireLocalTest@gmail.com'),
-    (1, 'Test Title', 'Denver, CO', 80014, 'Test Company inc.', 'This is a test job summary', 'This is a test job description', 120000, 'mid', 'contract', 'hireLocalTest@gmail.com'),
-    (1, 'Test Title', 'Denver, CO', 80014, 'Test Company inc.', 'This is a test job summary', 'This is a test job description', 68000, 'entry', 'internship', 'hireLocalTest@gmail.com'),
-    (1, 'Test Title', 'Denver, CO', 80014, 'Test Company inc.', 'This is a test job summary', 'This is a test job description', 100000, 'mid', 'temporary', 'hireLocalTest@gmail.com'),
-    (1, 'Test Title', 'Denver, CO', 80014, 'Test Company inc.', 'This is a test job summary', 'This is a test job description', 150000, 'senior', 'full-time', 'hireLocalTest@gmail.com');
+    (1, 'Test Title', 'Denver, CO', 80014, 'Test Company inc.', 'This is a test job summary', 'This is a test job description', 85000, 'mid', 'part-time', 'hireLocal01@gmail.com'),
+    (1, 'Test Title', 'Denver, CO', 80014, 'Test Company inc.', 'This is a test job summary', 'This is a test job description', 200000, 'senior', 'full-time', 'hireLocal01@gmail.com'),
+    (1, 'Test Title', 'Denver, CO', 80014, 'Test Company inc.', 'This is a test job summary', 'This is a test job description', 45000, 'entry', 'full-time', 'hireLocal01@gmail.com'),
+    (1, 'Test Title', 'Denver, CO', 80014, 'Test Company inc.', 'This is a test job summary', 'This is a test job description', 120000, 'mid', 'contract', 'hireLocal01@gmail.com'),
+    (1, 'Test Title', 'Denver, CO', 80014, 'Test Company inc.', 'This is a test job summary', 'This is a test job description', 68000, 'entry', 'internship', 'hireLocal01@gmail.com'),
+    (1, 'Test Title', 'Denver, CO', 80014, 'Test Company inc.', 'This is a test job summary', 'This is a test job description', 100000, 'mid', 'temporary', 'hireLocal01@gmail.com'),
+    (1, 'Test Title', 'Denver, CO', 80014, 'Test Company inc.', 'This is a test job summary', 'This is a test job description', 150000, 'senior', 'full-time', 'hireLocal01@gmail.com');
 
 INSERT INTO "reqs" ("job_id", "requirement")
 VALUES
