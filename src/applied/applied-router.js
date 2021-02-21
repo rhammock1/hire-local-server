@@ -12,6 +12,7 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 const sgMail = require('@sendgrid/mail');
+const appliedServices = require('./applied-services');
 sgMail.setApiKey(SENDGRID_API_KEY);
 
 
@@ -61,11 +62,20 @@ appliedRouter
             attachments: attachments
         };
 
-        return sgMail
+        await sgMail
             .send(msg)
-            .then(() => res.status(201).json({ message: `Successfully applied to the ${jobObj.title} position at` }))
+            .then(() => console.log('email sent'))
             .catch(next);
         
+        const newApplied = {
+            user_id: userId,
+            job_id: jobId
+        };
+
+        appliedServices.insertNewApplied(db, newApplied)
+            .then((applied) => res.status(201).json(applied))
+            .catch(next);
+          
     })
 
 async function getJobAndResume(jobId, userId, db, next) {
