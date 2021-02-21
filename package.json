@@ -20,6 +20,7 @@
   "author": "Robert Hammock <rhamm1027@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@sendgrid/mail": "^7.4.2",
     "bcryptjs": "^2.4.3",
     "cheerio": "^1.0.0-rc.5",
     "cors": "^2.8.5",
