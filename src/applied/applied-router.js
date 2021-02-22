@@ -62,7 +62,7 @@ appliedRouter
 
         const msg = {
             to: contact,
-            from: 'hirelocal01@gmail.com',
+            from: 'hireLocal01@gmail.com',
             subject: `Application for job: ${jobObj.title}`,
             text: 'This is just a little test',
             attachments: attachments
