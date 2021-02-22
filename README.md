@@ -30,7 +30,7 @@ This server uses SendGrid email API to send an email to the job post's contact w
             "location": "Denver, CO",
             "created_on": "2021-02-05T08:45:39.999Z",
             "has_expired": false,
-            "contact": "hireLocal01@gmail.com"
+            "contact": "hirelocal01@gmail.com"
         }, ... ],
       "expired" : []   
    ```
@@ -52,7 +52,7 @@ This server uses SendGrid email API to send an email to the job post's contact w
     "location": "Denver, CO",
     "created_on": "2021-02-05T08:45:39.999Z",
     "has_expired": false,
-    "contact": "hireLocal01@gmail.com",
+    "contact": "hirelocal01@gmail.com",
     "reqs": [
         {
             "id": 1,

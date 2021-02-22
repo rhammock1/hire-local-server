@@ -29,11 +29,10 @@ appliedRouter
         // get user resume from db and accept CL upload from req.
         const coverLetter = req.file;
         const { jobId, contact } = req.body;
-        console.log(contact);
         const db = req.app.get('db');
         const { userId } = req.params;
         
-        const { jobObj, resumeObj, fileData } = await getJobAndResume(jobId, userId, db, next);
+        const { jobObj, resumeObj, fileData } = await getJobAndResume(jobId, userId, db, req, res, next);
         
         const attachments = 
             (!coverLetter) 
@@ -63,7 +62,7 @@ appliedRouter
 
         const msg = {
             to: contact,
-            from: 'hireLocal01@gmail.com',
+            from: 'hirelocal01@gmail.com',
             subject: `Application for job: ${jobObj.title}`,
             text: 'This is just a little test',
             attachments: attachments
@@ -79,14 +78,14 @@ appliedRouter
             job_id: jobId
         };
 
-        appliedServices.insertNewApplied(db, newApplied)
+        await appliedServices.insertNewApplied(db, newApplied)
             .then((applied) => res.status(201).json(applied))
             .catch(next);
           
     })
 
-async function getJobAndResume(jobId, userId, db, next) {
-    let jobObj;
+async function getJobAndResume(jobId, userId, db, req, res, next) {
+    let jobObj = {};
     await jobsSerivice.getById(db, jobId)
         .then((job) => jobObj = job)
         .catch(next)
@@ -95,12 +94,13 @@ async function getJobAndResume(jobId, userId, db, next) {
             error: 'Job doesn\'t exist'
         });
     }
-    let fileData;
-    let resumeObj;
+    let fileData = {};
+    let resumeObj = {};
     await resumeServices.getByUserId(db, userId)
         .then((resume) => {
             
             if (!resume) {
+                
                 return res.status(404).json({ error: 'No resume found for the selected user'});
             }
             resumeObj = resume;
