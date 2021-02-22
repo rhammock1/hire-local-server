@@ -28,10 +28,11 @@ appliedRouter
     .post(upload.single('coverLetter'), jsonParser, async (req, res, next) => {
         // get user resume from db and accept CL upload from req.
         const coverLetter = req.file;
-        const { jobId, contact } = req.body;
+        const { jobId } = req.body;
+        
         const db = req.app.get('db');
         const { userId } = req.params;
-        
+       
         const { jobObj, resumeObj, fileData } = await getJobAndResume(jobId, userId, db, req, res, next);
         
         const attachments = 
@@ -61,7 +62,7 @@ appliedRouter
                 ];
 
         const msg = {
-            to: contact,
+            to: jobObj.contact,
             from: 'hireLocal01@gmail.com',
             subject: `Application for job: ${jobObj.title}`,
             text: 'This is just a little test',
@@ -86,8 +87,11 @@ appliedRouter
 
 async function getJobAndResume(jobId, userId, db, req, res, next) {
     let jobObj = {};
+    
     await jobsSerivice.getById(db, jobId)
-        .then((job) => jobObj = job)
+        .then((job) => {
+            
+            jobObj = job})
         .catch(next)
     if (!jobObj) {
         return res.status(404).json({
