@@ -39,7 +39,6 @@ resumeRouter
         if (!file) {
             return res.status(400).json({ error: 'Please upload a file' });
         }
-        console.log(file);
         const fileObj = {
             user_id: userId,
             resume: file.buffer,

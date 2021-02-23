@@ -34,7 +34,7 @@ jobsRouter
             contact,
             reqs
         } = req.body;
-
+        console.log(reqs);
         const requiredFields = ['title', 'user_id', 'company', 'description', 'exp_level', 'zipcode', 'job_type', 'contact', 'location'];
         
         const newJob = {

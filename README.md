@@ -1,12 +1,21 @@
 # Hire Local - Job Posting App API
 
 [Live link to client](https://hire-local-client.vercel.app/)
+Client repo [here](https://github.com/rhammock1/hire-local-client)
 
 This server is made with Node and Express with a PostgreSQL database. This is a job board app that allows users to search for and post new jobs. 
 
 Users can upload their resume, update, and delete it. They can save jobs to view later as well as apply for job post - if they already have a resume provided.
 
 This server uses SendGrid email API to send an email to the job post's contact with the user's resume and optional cover letter.
+
+## Screen Shots:
+
+![ScreenShot](./images/search.png)
+![ScreenShot](./images/jobDetails.png)
+![ScreenShot](./images/accountPage.png)
+![ScreenShot](./images/newJob.png)
+![ScreenShot](./images/savedJobs.png)
 
 ## Documentation
 

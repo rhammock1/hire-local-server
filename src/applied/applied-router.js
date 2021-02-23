@@ -28,6 +28,7 @@ appliedRouter
     .post(upload.single('coverLetter'), jsonParser, async (req, res, next) => {
         // get user resume from db and accept CL upload from req.
         const coverLetter = req.file;
+        
         const { jobId } = req.body;
         
         const db = req.app.get('db');
