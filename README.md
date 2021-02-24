@@ -7,6 +7,8 @@ This server is made with Node and Express with a PostgreSQL database. This is a 
 
 Users can upload their resume, update, and delete it. They can save jobs to view later as well as apply for job post - if they already have a resume provided.
 
+In the future the jobs will have a default expiry time and ways for the user to set their own desired time. A notification system will be implemented as well. It would notify a user when the job poster has viewed their resume and allow the job poster to automatically send a response back to the user based on their opinion of the resume/cover letter
+
 This server uses SendGrid email API to send an email to the job post's contact with the user's resume and optional cover letter.
 
 ## Screen Shots:

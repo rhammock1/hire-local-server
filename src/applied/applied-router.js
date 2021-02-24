@@ -6,7 +6,7 @@ const appliedRouter = express.Router();
 const { requireAuth } = require('../middleware/jwt-auth');
 const multer = require('multer');
 const resumeServices = require('../resumes/resume-services');
-const jobsSerivice = require('../jobs/jobs-service');
+const jobsService = require('../jobs/jobs-service');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
@@ -90,10 +90,14 @@ appliedRouter
           
     })
 
+    // Function gets the job and resume for the user from the different tables
+    // In future, join the tables together so there is no need for this.
 async function getJobAndResume(jobId, userId, db, req, res, next) {
     let jobObj = {};
+    let fileData = {};
+    let resumeObj = {};
     
-    await jobsSerivice.getById(db, jobId)
+    await jobsService.getById(db, jobId)
         .then((job) => {
             
             jobObj = job})
@@ -103,8 +107,7 @@ async function getJobAndResume(jobId, userId, db, req, res, next) {
             error: 'Job doesn\'t exist'
         });
     }
-    let fileData = {};
-    let resumeObj = {};
+
     await resumeServices.getByUserId(db, userId)
         .then((resume) => {
             

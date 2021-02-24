@@ -2,14 +2,14 @@ const express = require('express');
 const jsonParser = express.json();
 const jobsRouter = express.Router();
 const path = require('path');
-const jobsSerivice = require('./jobs-service');
+const jobsService = require('./jobs-service');
 const { requireAuth } = require('../middleware/jwt-auth');
 
 jobsRouter
     .route('/')
     .get((req, res, next) => {
         const db = req.app.get('db');
-        jobsSerivice.getAllJobs(db)
+        jobsService.getAllJobs(db)
             .then((jobs) => {
                 let notExpired = [];
                 let expired = [];
@@ -34,7 +34,6 @@ jobsRouter
             contact,
             reqs
         } = req.body;
-        console.log(reqs);
         const requiredFields = ['title', 'user_id', 'company', 'description', 'exp_level', 'zipcode', 'job_type', 'contact', 'location'];
         
         const newJob = {
@@ -66,14 +65,14 @@ jobsRouter
         } else {
             const db = req.app.get('db');
             
-            jobsSerivice.insertNewJob(db, newJob)
+            jobsService.insertNewJob(db, newJob)
                 .then((job) => {
                     if (reqs) {
                         const reqsToInsert = reqs.map((req) => ({
                             job_id: job.id,
                             requirement: req.requirement
                         }) )
-                        jobsSerivice.insertNewReq(db, reqsToInsert)
+                        jobsService.insertNewReq(db, reqsToInsert)
                             .then((req) => console.log(req))
                             .catch(next);
                     }
@@ -124,7 +123,7 @@ jobsRouter
             has_expired           
         };
         const db = req.app.get('db');
-        jobsSerivice.updateJob(db, req.params.jobId, updatedJob)
+        jobsService.updateJob(db, req.params.jobId, updatedJob)
             .then(() => {
                 return res.status(204).end();
             })
@@ -135,13 +134,13 @@ async function checkJobExists(req, res, next) {
     const db = req.app.get('db');
     const { jobId } = req.params
     try {
-        const job = await jobsSerivice.getById(db, jobId);
+        const job = await jobsService.getById(db, jobId);
         if (!job) {
             return res.status(404).json({
                 error: 'Job doesn\'t exist'
             });
         }
-        const reqs = await jobsSerivice.getReqsById(db, jobId)
+        const reqs = await jobsService.getReqsById(db, jobId)
         res.job = job;
         res.job.reqs = reqs;
         next();

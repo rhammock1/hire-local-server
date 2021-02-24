@@ -1,4 +1,4 @@
-const jobsSerivice = {
+const jobsService = {
 
     getAllJobs(knex) {
         return knex.select('*').from('jobs');
@@ -43,4 +43,4 @@ const jobsSerivice = {
 
 }
 
-module.exports = jobsSerivice;
+module.exports = jobsService;
