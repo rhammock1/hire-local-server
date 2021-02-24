@@ -7,7 +7,6 @@ const { requireAuth } = require('../middleware/jwt-auth');
 const multer = require('multer');
 const resumeServices = require('../resumes/resume-services');
 const jobsSerivice = require('../jobs/jobs-service');
-const path = require('path');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
@@ -18,6 +17,7 @@ sgMail.setApiKey(SENDGRID_API_KEY);
 
 appliedRouter
     .route('/:userId')
+    .all(requireAuth)
     .get((req, res, next) => {
         const db = req.app.get('db');
         const { userId } = req.params;
@@ -84,7 +84,7 @@ appliedRouter
             job_id: jobId
         };
 
-        return await appliedServices.insertNewApplied(db, newApplied)
+        await appliedServices.insertNewApplied(db, newApplied)
             .then((applied) => res.status(201).json(applied))
             .catch(next);
           
