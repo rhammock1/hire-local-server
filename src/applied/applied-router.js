@@ -30,6 +30,10 @@ appliedRouter
         const coverLetter = req.file;
         
         const { jobId } = req.body;
+
+        if (!jobId) {
+            return res.status(400).json({ error: 'Body must contain job id' });
+        }
         
         const db = req.app.get('db');
         const { userId } = req.params;
@@ -80,7 +84,7 @@ appliedRouter
             job_id: jobId
         };
 
-        await appliedServices.insertNewApplied(db, newApplied)
+        return await appliedServices.insertNewApplied(db, newApplied)
             .then((applied) => res.status(201).json(applied))
             .catch(next);
           
